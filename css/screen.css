@@ -8,8 +8,14 @@
 
 :root {
     /* colors */
+    --color-light: hsla(208, 100%, 90%, 1);
+     --color-dark: hsla(208, 70%, 20%, 1);
 
+
+     --color-front: var(--color-dark);
+     --color-back: var(--color-light);
     /* opacity */
+    --opacity: 0.6;
 
     /* transitions */
 }
@@ -27,10 +33,13 @@
 html {
     font-size: 16px;
     line-height: 1.5;
-    font-family: Helvetica, arial, sans-serif;
+    font-family: 'Work Sans', sans-serif;
     box-sizing: border-box;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    background-color:var(--color-back);
+    color:var(--color-front);
+    
 }
 
 *,
@@ -46,18 +55,22 @@ html {
 * Customize the background color to match your design.
 */
 
+
 ::-moz-selection {
-    background: red;
+    background: var(--color-front);
     color: white;
     text-shadow: none;
 }
 
 ::selection {
-    background: red;
+    background: var(--color-front);
     color: white;
     text-shadow: none;
 }
-
+.is-night {
+    --color-front: var(--color-light);
+    --color-back: var(--color-dark);
+ }
 /*------------------------------------*\
 #Elements
 \*------------------------------------*/
@@ -249,7 +262,12 @@ input::placeholder {
 */
 
 .c-logo {
-
+    font-size: 16px;
+    font-weight: normal;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
 }
 
 /*
@@ -258,12 +276,24 @@ input::placeholder {
     The sun
 */
 
-.c-sun {
 
+/* pen img/svg/sun.svg 
+copy paste de code in de h1 voor de tekst.
+Geef het een nieuwe class c-sun
+Geef het de juiste breedte, hoogte en het juiste kleur (met CSS var). Kijk nog niet naar de opacity van het hele logo.
+Zorg er voor dat de tekst en svg naast elkaar komen met flexbox.
+Zorg dat er een gap zit tussen het woord en de zon van 8px. */
+.c-sun {
+    display: flex;
+    align-items: center;
+    width: 22px;
+    height: 22px;
+    fill: var(--color-front);
 }
 
 .c-logo .c-sun {
-
+  display: flex;
+  justify-content: flex-start;
 }
 
 /*
@@ -272,11 +302,80 @@ input::placeholder {
     Main app wrapper
 */
 
+
+/* .c-app de juiste maximum breedte en nodige padding krijgt zoals in het design
+.c-app gecentreerd wordt in het midden. */
+.c-app {
+   min-height: 100vh;
+   display: flex;
+   /* 1rem = body font size = 16px */
+   flex-direction: column;
+   justify-content: space-between;
+   margin-left: auto;
+   margin-right: auto;
+   padding: 2rem 2rem 0.5rem;
+   max-width: 25rem; /*400px*/
+
+
+}
+/* .c-app__summary de juiste font-size en line-height krijgt. */
+.c-app__summary{
+    font-size: 1.75rem;
+    line-height: 2.5rem;
+    text-align: start;
+}
+.c-app__location{
+    font-size: 16px;
+    align-self: start;
+}
 /*
     Component: Horizon
     ---
     Horizon with sun visualisation
 */
+
+.horizon{
+    margin-bottom: 2.125rem;
+}
+.c-horizon__sky-wrapper {
+    position: relative;
+    height: 200px;
+    overflow: hidden;
+    padding-top: 22px;
+    padding-right: 40px;
+}
+.c-horizon__sky {
+    position: relative;
+    height: 100%;
+}
+.c-horizon__sun{
+    font-size: 0.75rem;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 2.5rem;
+    transform: translateY(22px);
+}
+.c-horizon__sun::before{
+    content: attr(data-time);
+    font-size: 0.75rem;
+    
+}
+.c-horizon__line{
+    display: flex;
+    justify-content: space-between;
+    padding-top: 0.5rem;
+    border-top: 1px solid var(--color-front);
+    
+}
+.c-horizon__time{
+    line-height: 0.875rem;
+    font-size: 0.75rem;
+}
+
+
 
 /*------------------------------------*\
 #UTILITIES
@@ -285,7 +384,13 @@ input::placeholder {
 /*
     Utilities: Mute
     Mute with opacity
+
 */
+
+.u-muted{
+    opacity: var(--opacity);
+}
+
 
 /*------------------------------------*\
 #STATES
